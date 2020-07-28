@@ -52,5 +52,10 @@ public class EmployeeController {
         return null;
     }
 
+    @PostMapping
+    public boolean addEmployee(@RequestBody Employee employee) {
+        List<Employee> employees = new ArrayList<>();
+        return employees.add(employee);
+    }
 
 }
