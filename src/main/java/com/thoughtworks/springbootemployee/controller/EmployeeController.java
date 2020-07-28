@@ -39,7 +39,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/{id}")
-    public Employee getCertainCompany(@PathVariable int id) {
+    public Employee getCertainEmployee(@PathVariable int id) {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "female"));
         employees.add(new Employee(2, "female"));
