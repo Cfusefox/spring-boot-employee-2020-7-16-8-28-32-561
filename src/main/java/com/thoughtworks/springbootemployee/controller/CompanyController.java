@@ -21,8 +21,10 @@ public class CompanyController {
         companies.add(new Company(4,null));
         companies.add(new Company(5,null));
         if(page != null && pageSize != null) {
-            for(int index = 0; index < pageSize; index++) {
-                certainCompanies.add(companies.get(index));
+            for(int index = 0; index < companies.size(); index++) {
+                if(index >= (page - 1) && certainCompanies.size() <pageSize) {
+                    certainCompanies.add(companies.get(index));
+                }
             }
             return certainCompanies;
         }
