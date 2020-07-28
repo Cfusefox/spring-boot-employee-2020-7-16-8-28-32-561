@@ -76,4 +76,19 @@ public class CompanyController {
         }
         return false;
     }
+
+    @DeleteMapping(path = "/{companyID}")
+    public Boolean deleteAllEmployessInCompany(@PathVariable int companyID) {
+        List<Company> companies = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1));
+        companies.add(new Company(1,employees));
+        for (Company currentCompany: companies) {
+            if(currentCompany.getCompanyID() == companyID) {
+                currentCompany.setEmployees(null);
+                return true;
+            }
+        }
+        return false;
+    }
 }
