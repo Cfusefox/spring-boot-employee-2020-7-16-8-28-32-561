@@ -59,7 +59,7 @@ public class EmployeeController {
     }
 
     @PutMapping(path = "/{employeeID}")
-    public Boolean updateCompanyInformation(@RequestBody Employee employee, @PathVariable int employeeID) {
+    public Boolean updateEmployeeInformation(@RequestBody Employee employee, @PathVariable int employeeID) {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1,"female"));
         employees.add(new Employee(2,"female"));
