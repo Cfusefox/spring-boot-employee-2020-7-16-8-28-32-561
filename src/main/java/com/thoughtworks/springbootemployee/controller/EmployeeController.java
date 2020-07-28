@@ -1,6 +1,5 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +26,7 @@ public class EmployeeController {
             }
             return certainEmployees;
         }
-        if(!gender.equals(null)) {
+        if(gender != null) {
             for (Employee employee: employees) {
                 if(employee.getGender().equals(gender)) {
                     certainEmployees.add(employee);
