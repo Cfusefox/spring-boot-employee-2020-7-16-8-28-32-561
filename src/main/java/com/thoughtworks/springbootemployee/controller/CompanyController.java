@@ -5,10 +5,8 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
 
 @RestController
 @RequestMapping("/companies")
@@ -62,5 +60,20 @@ public class CompanyController {
     public Boolean addCompany(@RequestBody Company company) {
         List<Company> companies = new ArrayList<>();
         return companies.add(company);
+    }
+
+    @PutMapping(path = "/{companyID}")
+    public Boolean updateCompanyInformation(@RequestBody Company company, @PathVariable int companyID) {
+        List<Company> companies = new ArrayList<>();
+        companies.add(new Company(1,null));
+        companies.add(new Company(2,null));
+        companies.add(new Company(3,null));
+        for (Company currentCompany: companies) {
+            if(currentCompany.getCompanyID() == companyID) {
+                currentCompany.setEmployees(company.getEmployees());
+                return true;
+            }
+        }
+        return false;
     }
 }

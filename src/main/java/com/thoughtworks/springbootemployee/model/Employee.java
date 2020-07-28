@@ -6,6 +6,9 @@ public class Employee {
     public Employee(int employeeID) {
         this.employeeID = employeeID;
     }
+    public Employee() {
+
+    }
 
     public int getEmployeeID() {
         return employeeID;
