@@ -3,6 +3,8 @@ package com.thoughtworks.springbootemployee.model;
 import java.util.List;
 
 public class Company {
+    public Company() {
+    }
 
     private int companyID;
 

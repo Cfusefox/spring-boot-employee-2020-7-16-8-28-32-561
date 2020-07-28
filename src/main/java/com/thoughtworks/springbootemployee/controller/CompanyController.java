@@ -5,6 +5,7 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -55,5 +56,11 @@ public class CompanyController {
             }
         }
         return null;
+    }
+
+    @PostMapping
+    public Boolean addCompany(@RequestBody Company company) {
+        List<Company> companies = new ArrayList<>();
+        return companies.add(company);
     }
 }
