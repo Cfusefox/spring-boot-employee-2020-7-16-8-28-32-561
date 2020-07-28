@@ -72,4 +72,19 @@ public class EmployeeController {
         }
         return false;
     }
+
+    @DeleteMapping(path = "/{employeeID}")
+    public Boolean deleteEmployee(@PathVariable int employeeID) {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1,"female"));
+        employees.add(new Employee(2,"female"));
+        employees.add(new Employee(3,"female"));
+        for (Employee currentEmployee: employees) {
+            if(currentEmployee.getEmployeeID() == employeeID) {
+                employees.remove(currentEmployee);
+                return true;
+            }
+        }
+        return false;
+    }
 }
