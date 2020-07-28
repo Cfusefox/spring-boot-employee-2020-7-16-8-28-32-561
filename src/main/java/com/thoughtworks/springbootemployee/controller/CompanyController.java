@@ -83,7 +83,7 @@ public class CompanyController {
     public Boolean deleteAllEmployessInCompany(@PathVariable int companyID) {
         List<Company> companies = new ArrayList<>();
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1));
+        employees.add(new Employee(1, "female"));
         companies.add(new Company(1,employees));
         for (Company currentCompany: companies) {
             if(currentCompany.getCompanyID() == companyID) {
