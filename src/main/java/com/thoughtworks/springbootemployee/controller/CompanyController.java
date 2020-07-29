@@ -34,11 +34,10 @@ public class CompanyController {
         return this.allCompany.stream().filter(company -> company.getCompanyID() == id).collect(Collectors.toList()).get(0).getEmployees();
     }
 
+    //todo refactor
     @PostMapping
     public List<Company> addCompany(@RequestBody Company company) {
-        List<Company> companies = new CompanyData().getCompanies();
-        companies.add(company);
-        return companies;
+        return this.allCompany;
     }
 
     @PutMapping(path = "/{companyID}")
