@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -16,7 +17,7 @@ public class CompanyController {
     List<Company> allCompany = new CompanyData().getCompanies();
 
     @GetMapping
-    public List<Company> getCompanyInformation(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) { 
+    public List<Company> getCompanyInformation(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) {
         if(page != null && pageSize != null) {
             return this.allCompany.subList((page - 1) * pageSize, (page-1) * pageSize + pageSize);
         }
@@ -25,13 +26,7 @@ public class CompanyController {
 
     @GetMapping(path = "/{id}")
     public Company getCertainCompany(@PathVariable int id) {
-        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
-        for (Company company: companies) {
-            if(company.getCompanyID() == id) {
-                return company;
-            }
-        }
-        return null;
+        return this.allCompany.stream().filter(company -> company.getCompanyID() == id).collect(Collectors.toList()).get(0);
     }
 
     @GetMapping(path = "/{id}/employees")
