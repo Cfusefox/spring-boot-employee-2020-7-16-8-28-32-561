@@ -2,12 +2,13 @@ package com.thoughtworks.springbootemployee.model;
 
 import java.util.List;
 
-//todo add param
 public class Company {
     public Company() {
     }
 
     private int companyID;
+    private int employeeNumber;
+    private List<Employee> employees;
 
     public List<Employee> getEmployees() {
         return employees;
@@ -17,19 +18,16 @@ public class Company {
         this.employees = employees;
     }
 
-    private List<Employee> employees;
 
-    public Company(int companyID,List<Employee> employees) {
+    public Company(int companyID, List<Employee> employees) {
         this.companyID = companyID;
         this.employees = employees;
+        this.employeeNumber = employees.size();
     }
 
     public int getCompanyID() {
         return companyID;
     }
 
-    public void setCompanyID(int companyID) {
-        this.companyID = companyID;
-    }
 
 }
