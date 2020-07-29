@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.data.CompanyData;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
@@ -13,20 +14,9 @@ import java.util.List;
 public class CompanyController {
     @GetMapping
     public List<Company> getAll(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) {
-        List<Company> companies = new ArrayList<>();
-        List<Company> certainCompanies = new ArrayList<>();
-        companies.add(new Company(1,null));
-        companies.add(new Company(2,null));
-        companies.add(new Company(3,null));
-        companies.add(new Company(4,null));
-        companies.add(new Company(5,null));
+        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         if(page != null && pageSize != null) {
-            for(int index = 0; index < companies.size(); index++) {
-                if(index >= (page - 1) && certainCompanies.size() <pageSize) {
-                    certainCompanies.add(companies.get(index));
-                }
-            }
-            return certainCompanies;
+            return companies.subList(page - 1, page-1 + pageSize);
         }
         return companies;
     }
