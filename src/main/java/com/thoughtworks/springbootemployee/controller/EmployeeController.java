@@ -15,11 +15,9 @@ public class EmployeeController {
                                  @RequestParam(name =  "gender", required = false) String gender) {
         List<Employee> employees = new ArrayList<>();
         List<Employee> certainEmployees = new ArrayList<>();
-        employees.add(new Employee(1, "female"));
-        employees.add(new Employee(2, "female"));
-        employees.add(new Employee(3, "female"));
-        employees.add(new Employee(4, "female"));
-        employees.add(new Employee(5, "male"));
+        employees.add(new Employee(1, "Zach", 18, "male", 1000));
+        employees.add(new Employee(2, "York", 18, "male", 1000));
+        employees.add(new Employee(3, "Karen", 18, "female", 1000));
         if(page != null && pageSize != null) {
             for(int index = 0; index < employees.size(); index++) {
                 if(index >= (page - 1) && certainEmployees.size() <pageSize) {
@@ -42,9 +40,9 @@ public class EmployeeController {
     @GetMapping(path = "/{id}")
     public Employee getCertainEmployee(@PathVariable int id) {
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "female"));
-        employees.add(new Employee(2, "female"));
-        employees.add(new Employee(3, "female"));
+        employees.add(new Employee(1, "Zach", 18, "male", 1000));
+        employees.add(new Employee(2, "York", 18, "male", 1000));
+        employees.add(new Employee(3, "Karen", 18, "female", 1000));
         for (Employee employee: employees) {
             if(employee.getEmployeeID() == id) {
                 return employee;
@@ -62,9 +60,9 @@ public class EmployeeController {
     @PutMapping(path = "/{employeeID}")
     public Boolean updateEmployeeInformation(@RequestBody Employee employee, @PathVariable int employeeID) {
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1,"female"));
-        employees.add(new Employee(2,"female"));
-        employees.add(new Employee(3,"female"));
+        employees.add(new Employee(1, "Zach", 18, "male", 1000));
+        employees.add(new Employee(2, "York", 18, "male", 1000));
+        employees.add(new Employee(3, "Karen", 18, "female", 1000));
         for (Employee currentEmployee: employees) {
             if(currentEmployee.getEmployeeID() == employeeID) {
                 currentEmployee.setGender(employee.getGender());
@@ -77,9 +75,9 @@ public class EmployeeController {
     @DeleteMapping(path = "/{employeeID}")
     public Boolean deleteEmployee(@PathVariable int employeeID) {
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1,"female"));
-        employees.add(new Employee(2,"female"));
-        employees.add(new Employee(3,"female"));
+        employees.add(new Employee(1, "Zach", 18, "male", 1000));
+        employees.add(new Employee(2, "York", 18, "male", 1000));
+        employees.add(new Employee(3, "Karen", 18, "female", 1000));
         for (Employee currentEmployee: employees) {
             if(currentEmployee.getEmployeeID() == employeeID) {
                 employees.remove(currentEmployee);
