@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.model;
 
 import java.util.List;
 
+//todo add param
 public class Company {
     public Company() {
     }

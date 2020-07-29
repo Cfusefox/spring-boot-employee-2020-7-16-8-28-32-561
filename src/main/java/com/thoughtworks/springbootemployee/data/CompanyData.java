@@ -20,4 +20,8 @@ public class CompanyData {
     public List<Company> getCompanies() {
         return companies;
     }
+
+    public Boolean addCompany(Company company) {
+        return this.companies.add(company);
+    }
 }

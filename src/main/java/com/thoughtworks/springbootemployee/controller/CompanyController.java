@@ -16,6 +16,7 @@ public class CompanyController {
     public List<Company> getAll(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) {
         List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         if(page != null && pageSize != null) {
+            //todo bug
             return companies.subList(page - 1, page-1 + pageSize);
         }
         return companies;
@@ -50,6 +51,7 @@ public class CompanyController {
     }
 
     @PutMapping(path = "/{companyID}")
+    //todo post put 返回数据
     public Boolean updateCompanyInformation(@RequestBody Company company, @PathVariable int companyID) {
         List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         for (Company currentCompany: companies) {
@@ -62,7 +64,7 @@ public class CompanyController {
     }
 
     @DeleteMapping(path = "/{companyID}")
-    public Boolean deleteAllEmployessInCompany(@PathVariable int companyID) {
+    public Boolean deleteAllEmployeesInCompany(@PathVariable int companyID) {
         List<Company> companies = new ArrayList<>();
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "female"));
