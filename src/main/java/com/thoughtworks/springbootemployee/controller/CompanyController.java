@@ -34,10 +34,7 @@ public class CompanyController {
 
     @GetMapping(path = "/{id}/employees")
     public List<Employee> getEmployeesInCompany(@PathVariable int id) {
-        List<Company> companies = new ArrayList<>();
-        List<Employee> employees = new ArrayList<>();
-        companies.add(new Company(1,employees));
-        companies.add(new Company(2,employees));
+        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         for (Company company: companies) {
             if(company.getCompanyID() == id) {
                 return company.getEmployees();
