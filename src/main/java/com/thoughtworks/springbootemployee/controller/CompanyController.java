@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/companies")
 public class CompanyController {
     @GetMapping
-    public List<Company> getAll(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) {
+    public List<Company> getCompanyInformation(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) {
         List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         if(page != null && pageSize != null) {
             //todo bug
