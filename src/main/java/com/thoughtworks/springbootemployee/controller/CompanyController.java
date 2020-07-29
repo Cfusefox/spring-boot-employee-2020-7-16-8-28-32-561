@@ -62,17 +62,15 @@ public class CompanyController {
     }
 
     @DeleteMapping(path = "/{companyID}")
-    public Boolean deleteAllEmployeesInCompany(@PathVariable int companyID) {
-        List<Company> companies = new ArrayList<>();
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "female"));
-        companies.add(new Company(1,employees));
+    public List<Company> deleteAllEmployeesInCompany(@PathVariable int companyID) {
+        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         for (Company currentCompany: companies) {
             if(currentCompany.getCompanyID() == companyID) {
                 currentCompany.setEmployees(null);
-                return true;
+                companies.remove(currentCompany);
+                break;
             }
         }
-        return false;
+        return companies;
     }
 }
