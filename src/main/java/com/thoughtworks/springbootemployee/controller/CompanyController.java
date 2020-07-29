@@ -12,13 +12,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
+
+    List<Company> allCompany = new CompanyData().getCompanies();
+
     @GetMapping
-    public List<Company> getCompanyInformation(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) {
-        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
+    public List<Company> getCompanyInformation(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) { 
         if(page != null && pageSize != null) {
-            return companies.subList((page - 1) * pageSize, (page-1) * pageSize + pageSize);
+            return this.allCompany.subList((page - 1) * pageSize, (page-1) * pageSize + pageSize);
         }
-        return companies;
+        return this.allCompany;
     }
 
     @GetMapping(path = "/{id}")

@@ -10,11 +10,11 @@ public class CompanyData {
     List<Company> companies = new ArrayList<>();
 
     public CompanyData() {
-        companies.add(new Company(1, null));
-        companies.add(new Company(2, null));
-        companies.add(new Company(3, null));
-        companies.add(new Company(4, null));
-        companies.add(new Company(5, null));
+        companies.add(new Company(1, new ArrayList<>()));
+        companies.add(new Company(2, new ArrayList<>()));
+        companies.add(new Company(3, new ArrayList<>()));
+        companies.add(new Company(4, new ArrayList<>()));
+        companies.add(new Company(5, new ArrayList<>()));
     }
 
     public List<Company> getCompanies() {
