@@ -25,6 +25,10 @@ public class Company {
         this.employeeNumber = employees.size();
     }
 
+    public void setEmployeeNumber() {
+        this.employeeNumber = employees.size();
+    }
+
     public int getCompanyID() {
         return companyID;
     }
