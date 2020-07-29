@@ -51,16 +51,14 @@ public class CompanyController {
     }
 
     @PutMapping(path = "/{companyID}")
-    //todo post put return value
-    public Boolean updateCompanyInformation(@RequestBody Company company, @PathVariable int companyID) {
+    public List<Company> updateCompanyInformation(@RequestBody Company company, @PathVariable int companyID) {
         List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         for (Company currentCompany: companies) {
             if(currentCompany.getCompanyID() == companyID) {
                 currentCompany.setEmployees(company.getEmployees());
-                return true;
             }
         }
-        return false;
+        return companies;
     }
 
     @DeleteMapping(path = "/{companyID}")
