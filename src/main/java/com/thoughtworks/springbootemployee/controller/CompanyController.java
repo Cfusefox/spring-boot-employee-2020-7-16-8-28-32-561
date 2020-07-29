@@ -23,9 +23,7 @@ public class CompanyController {
 
     @GetMapping(path = "/{id}")
     public Company getCertainCompany(@PathVariable int id) {
-        List<Company> companies = new ArrayList<>();
-        companies.add(new Company(1,null));
-        companies.add(new Company(2,null));
+        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         for (Company company: companies) {
             if(company.getCompanyID() == id) {
                 return company;
