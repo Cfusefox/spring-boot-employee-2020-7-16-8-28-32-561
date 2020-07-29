@@ -16,7 +16,6 @@ public class CompanyController {
     public List<Company> getCompanyInformation(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) {
         List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         if(page != null && pageSize != null) {
-            //todo bug
             return companies.subList((page - 1) * pageSize, (page-1) * pageSize + pageSize);
         }
         return companies;
@@ -45,9 +44,10 @@ public class CompanyController {
     }
 
     @PostMapping
-    public Boolean addCompany(@RequestBody Company company) {
-        List<Company> companies = new ArrayList<>();
-        return companies.add(company);
+    public List<Company> addCompany(@RequestBody Company company) {
+        List<Company> companies = new CompanyData().getCompanies();
+        companies.add(company);
+        return companies;
     }
 
     @PutMapping(path = "/{companyID}")
