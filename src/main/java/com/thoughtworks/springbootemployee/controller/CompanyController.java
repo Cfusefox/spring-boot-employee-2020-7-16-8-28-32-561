@@ -17,7 +17,7 @@ public class CompanyController {
         List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         if(page != null && pageSize != null) {
             //todo bug
-            return companies.subList(page - 1, page-1 + pageSize);
+            return companies.subList((page - 1) * pageSize, (page-1) * pageSize + pageSize);
         }
         return companies;
     }
@@ -51,7 +51,7 @@ public class CompanyController {
     }
 
     @PutMapping(path = "/{companyID}")
-    //todo post put 返回数据
+    //todo post put return value
     public Boolean updateCompanyInformation(@RequestBody Company company, @PathVariable int companyID) {
         List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         for (Company currentCompany: companies) {
