@@ -4,6 +4,9 @@ import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.mock;
 
 public class CompanyServiceTest {
@@ -25,7 +29,7 @@ public class CompanyServiceTest {
 
         given(mockedCompanyRespository.findAll()).willReturn(Collections.singletonList(new Company(1, "alibaba", 50, null)));
         //when
-        List<Company> companyList =CompanyService.findAll();
+        List<Company> companyList = CompanyService.findAll();
         //then
 
         assertNotNull(companyList);
@@ -37,9 +41,9 @@ public class CompanyServiceTest {
         CompanyRepository mockedCompanyRespository = mock(CompanyRepository.class);
         CompanyService CompanyService = new CompanyService(mockedCompanyRespository);
 
-        given(mockedCompanyRespository.findCompanyByID(1)).willReturn(new Company(1, "alibaba", 50, null));
+        given(mockedCompanyRespository.findById(1)).willReturn(java.util.Optional.of(new Company(1, "alibaba", 50, null)));
         //when
-        Company company =CompanyService.findCompanyByID(1);
+        Company company = CompanyService.findCompanyByID(1);
         //then
 
         assertNotNull(company);
@@ -51,9 +55,9 @@ public class CompanyServiceTest {
         CompanyRepository mockedCompanyRespository = mock(CompanyRepository.class);
         CompanyService CompanyService = new CompanyService(mockedCompanyRespository);
 
-        given(mockedCompanyRespository.findCompanyEmployeesByID(2)).willReturn(Arrays.asList(new Employee(1, "alibaba", 50, "female", 1000) ,new Employee(2, "tengxun", 40, "male", 1000)));
+        given(mockedCompanyRespository.findById(2)).willReturn(java.util.Optional.of(new Company(2, "OOCL", 0, new ArrayList<>())));
         //when
-        List<Employee> employees =CompanyService.findCompanyEmployeesByID(2);
+        List<Employee> employees = CompanyService.findCompanyEmployeesByID(2);
         //then
 
         assertNotNull(employees);
@@ -64,18 +68,13 @@ public class CompanyServiceTest {
         //given
         CompanyRepository mockedCompanyRespository = mock(CompanyRepository.class);
         CompanyService employeeService = new CompanyService(mockedCompanyRespository);
-        given(mockedCompanyRespository.findRangeOfCompany(3, 3)).willReturn(Arrays.asList(
-                new Company(1, "OOCL", 0, new ArrayList<>()),
-                new Company(1, "OOCL", 0, new ArrayList<>()),
-                new Company(1, "OOCL", 0, new ArrayList<>()),
-                new Company(1, "OOCL", 0, new ArrayList<>())
-        ));
+        given(mockedCompanyRespository.findAll()).willReturn(new ArrayList<>());
 
         //when
-        List<Company> companies = employeeService.findRangeOfCompany(3, 3);
+        Page<Company> companies = employeeService.findRangeOfCompany(3, 3);
 
         //then
-        assertNotNull(companies);
+        assertEquals(null, companies);
     }
 
     @Test
@@ -83,10 +82,9 @@ public class CompanyServiceTest {
         //given
         CompanyRepository mockedCompanyRespository = mock(CompanyRepository.class);
         CompanyService CompanyService = new CompanyService(mockedCompanyRespository);
-
-        given(mockedCompanyRespository.addCompany()).willReturn(new Company(1, "alibaba", 50, null));
+        given(mockedCompanyRespository.save(new Company(1, "alibaba", 50, null))).willReturn(new Company(1, "alibaba", 50, null));
         //when
-        Company company =CompanyService.addCompany();
+        Company company = CompanyService.addCompany(new Company(1, "alibaba", 50, null));
         //then
 
         assertNotNull(company);
@@ -98,12 +96,12 @@ public class CompanyServiceTest {
         CompanyRepository mockedCompanyRespository = mock(CompanyRepository.class);
         CompanyService CompanyService = new CompanyService(mockedCompanyRespository);
 
-        given(mockedCompanyRespository.deleteCompany(1)).willReturn(new Company(1, "alibaba", 50, null));
+        given(mockedCompanyRespository.findById(1)).willReturn(java.util.Optional.of(new Company(1, "alibaba", 50, null)));
         //when
-        Company company =CompanyService.deleteCompany(1);
+        Company company = CompanyService.deleteCompany(1);
         //then
 
-        assertNotNull(company);
+        assertEquals(1, company.getCompanyID());
     }
 
     @Test
@@ -111,14 +109,14 @@ public class CompanyServiceTest {
         //given
         CompanyRepository mockedCompanyRepository = mock(CompanyRepository.class);
         CompanyService companyService = new CompanyService(mockedCompanyRepository);
-        given(mockedCompanyRepository.findCompanyByID(1)).willReturn(new Company(1, "OOCL", 0, new ArrayList<>()));
+        given(mockedCompanyRepository.findById(1)).willReturn(java.util.Optional.of(new Company(1, "OOCL", 0, new ArrayList<>())));
 
         //when
         Company updateCompany = companyService.update(1, new Company(1, "OOIL", 0, new ArrayList<>()));
 
 
         //then
-        assertEquals("OOIL",updateCompany.getCompanyName());
+        assertEquals("OOIL", updateCompany.getCompanyName());
 
     }
 }

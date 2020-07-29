@@ -1,11 +1,15 @@
 package com.thoughtworks.springbootemployee.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
+@Entity
 public class Company {
     public Company() {
     }
 
+    @Id
     private int companyID;
     private String companyName;
     private int employeesNumber;

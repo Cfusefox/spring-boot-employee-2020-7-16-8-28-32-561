@@ -2,33 +2,11 @@ package com.thoughtworks.springbootemployee.repository;
 
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public class CompanyRepository {
-
-    public List<Company> findAll(){
-        return null;
-    }
+public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
 
-    public Company findCompanyByID(int id) {
-        return null;
-    }
-
-    public List<Employee> findCompanyEmployeesByID(int companyID) {
-        return null;
-    }
-
-    public List<Company> findRangeOfCompany(int page, int pageSize) {
-        return null;
-    }
-
-    public Company addCompany() {
-        return  null;
-    }
-
-    public Company deleteCompany(int companyID) {
-        return null;
-    }
 }

@@ -3,6 +3,8 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class EmployeeServiceTest {
         //given
         EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
-        given(mockedEmployeeRespository.findEmployeeByID(5)).willReturn(new Employee(3, "ffff", 18, "male", 1000));
+        given(mockedEmployeeRespository.findById(5)).willReturn(java.util.Optional.of(new Employee(3, "ffff", 18, "male", 1000)));
 
         //when
         Employee updateEmployee = employeeService.update(5, new Employee(2, "test", 18, "male", 1000));
@@ -56,7 +58,7 @@ public class EmployeeServiceTest {
         EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
         Employee employee = new Employee(3, "ffff", 18, "male", 1000);
-        given(mockedEmployeeRespository.findEmployeeByID(3)).willReturn(employee);
+        given(mockedEmployeeRespository.findById(3)).willReturn(java.util.Optional.of(employee));
 
         //when
         Employee certainEmployee = employeeService.findEmployeeByID(3);
@@ -73,7 +75,7 @@ public class EmployeeServiceTest {
         List<Employee> employeeList = new ArrayList<>();
         employeeList.add(new Employee(3, "ffff", 18, "male", 1000));
         employeeList.add(new Employee(5, "ffff", 18, "male", 1000));
-        given(mockedEmployeeRespository.findEmployeeByGender("male")).willReturn(employeeList);
+        given(mockedEmployeeRespository.findAllByGender("male")).willReturn(employeeList);
         //when
         List<Employee> employees = employeeService.findEmployeeByGender("male");
         //then
@@ -84,19 +86,15 @@ public class EmployeeServiceTest {
     @Test
     void should_range_of_employee_when_get_range_of_employees_given_page_and_page_size() {
         //given
-        EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
-        List<Employee> employeeList = new ArrayList<>();
-        employeeList.add(new Employee(3, "ffff", 18, "male", 1000));
-        employeeList.add(new Employee(4, "ffff", 18, "male", 1000));
-        employeeList.add(new Employee(5, "ffff", 18, "male", 1000));
-        given(mockedEmployeeRespository.getRangeOfEmployees(3, 3)).willReturn(employeeList);
+        EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        given(mockedEmployeeRepository.findAll(PageRequest.of(3, 3))).willReturn(Page.empty());
 
         //when
-        List<Employee> employees = employeeService.getRangeOfEmployees(3, 3);
+        Page<Employee> employees = employeeService.getRangeOfEmployees(3, 3);
 
         //then
-        assertEquals(employeeList, employees);
+        assertNotNull(employees);
     }
 
     @Test
@@ -106,7 +104,7 @@ public class EmployeeServiceTest {
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
         Employee employee =new Employee(3, "ffff", 18, "male", 1000);
 
-        given(mockedEmployeeRespository.addEmployee(employee)).willReturn(employee);
+        given(mockedEmployeeRespository.save(employee)).willReturn(employee);
 
         //when
         Employee addedEmployee = employeeService.addEmployee(employee);
@@ -121,8 +119,7 @@ public class EmployeeServiceTest {
         EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
         Employee employee =new Employee(3, "ffff", 18, "male", 1000);
-
-        given(mockedEmployeeRespository.deleteEmployee(employee)).willReturn(employee);
+        given(mockedEmployeeRespository.findById(employee.getEmployeeID())).willReturn(java.util.Optional.of(employee));
 
         //when
         Employee deletedEmployee = employeeService.deleteEmployee(employee);
