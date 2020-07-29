@@ -30,16 +30,7 @@ public class EmployeeController {
 
     @GetMapping(path = "/{id}")
     public Employee getCertainEmployee(@PathVariable int id) {
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "Zach", 18, "male", 1000));
-        employees.add(new Employee(2, "York", 18, "male", 1000));
-        employees.add(new Employee(3, "Karen", 18, "female", 1000));
-        for (Employee employee: employees) {
-            if(employee.getEmployeeID() == id) {
-                return employee;
-            }
-        }
-        return null;
+        return this.allEmployee.stream().filter(employee -> employee.getEmployeeID() == id).collect(Collectors.toList()).get(0);
     }
 
     @PostMapping
