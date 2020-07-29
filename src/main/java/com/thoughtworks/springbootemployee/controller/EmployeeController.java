@@ -10,8 +10,7 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
     @GetMapping
-    //todo rename
-    public List<Employee> getAll(@RequestParam(name = "page" , required = false) Integer page,
+    public List<Employee> getEmployeesInformation(@RequestParam(name = "page" , required = false) Integer page,
                                  @RequestParam(name = "pageSize",required = false) Integer pageSize,
                                  @RequestParam(name =  "gender", required = false) String gender) {
         List<Employee> employees = new ArrayList<>();
