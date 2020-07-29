@@ -19,4 +19,8 @@ public class EmployeeData {
     public boolean addEmployee(Employee employee) {
         return this.employees.add(employee);
     }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
 }
