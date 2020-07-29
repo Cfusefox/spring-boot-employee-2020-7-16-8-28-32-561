@@ -51,10 +51,7 @@ public class CompanyController {
 
     @PutMapping(path = "/{companyID}")
     public Boolean updateCompanyInformation(@RequestBody Company company, @PathVariable int companyID) {
-        List<Company> companies = new ArrayList<>();
-        companies.add(new Company(1,null));
-        companies.add(new Company(2,null));
-        companies.add(new Company(3,null));
+        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
         for (Company currentCompany: companies) {
             if(currentCompany.getCompanyID() == companyID) {
                 currentCompany.setEmployees(company.getEmployees());
