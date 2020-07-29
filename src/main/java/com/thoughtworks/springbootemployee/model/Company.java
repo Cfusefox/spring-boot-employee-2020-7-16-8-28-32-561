@@ -7,7 +7,8 @@ public class Company {
     }
 
     private int companyID;
-    private int employeeNumber;
+    private String companyName;
+    private int employeesNumber;
     private List<Employee> employees;
 
     public List<Employee> getEmployees() {
@@ -19,19 +20,38 @@ public class Company {
     }
 
 
-    public Company(int companyID, List<Employee> employees) {
+    public Company(int companyID, String companyName, int employeesNumber, List<Employee> employees) {
         this.companyID = companyID;
+        this.companyName = companyName;
+        this.employeesNumber = employeesNumber;
         this.employees = employees;
-        this.employeeNumber = employees.size();
     }
 
     public void setEmployeeNumber() {
-        this.employeeNumber = employees.size();
+        this.employeesNumber = employees.size();
     }
 
     public int getCompanyID() {
         return companyID;
     }
 
+    public void setCompanyID(int companyID) {
+        this.companyID = companyID;
+    }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public int getEmployeesNumber() {
+        return employeesNumber;
+    }
+
+    public void setEmployeesNumber(int employeesNumber) {
+        this.employeesNumber = employeesNumber;
+    }
 }
