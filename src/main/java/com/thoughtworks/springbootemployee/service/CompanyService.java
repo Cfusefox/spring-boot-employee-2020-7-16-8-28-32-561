@@ -39,6 +39,7 @@ public class CompanyService {
 
     public Company deleteCompany(int companyID) {
         Company company = findCompanyByID(companyID);
+        //
         companyRepository.deleteById(companyID);
         return company;
     }

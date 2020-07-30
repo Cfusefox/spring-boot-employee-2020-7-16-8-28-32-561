@@ -14,8 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.mock;
@@ -27,13 +26,17 @@ public class CompanyServiceTest {
         //given
         CompanyRepository mockedCompanyRepository = mock(CompanyRepository.class);
         CompanyService CompanyService = new CompanyService(mockedCompanyRepository);
-
-        given(mockedCompanyRepository.findAll()).willReturn(Collections.singletonList(new Company(1, "alibaba", 50, null)));
+        List<Company> companies = Arrays.asList(
+                new Company(1, "alibaba", 50, null),
+                new Company(2, "alibaba", 50, null)
+        );
+        given(mockedCompanyRepository.findAll()).willReturn(companies);
         //when
         List<Company> companyList = CompanyService.findAll();
         //then
 
-        assertNotNull(companyList);
+        //todo
+        assertEquals(companies, companyList);
     }
 
     @Test
@@ -47,6 +50,7 @@ public class CompanyServiceTest {
         Company company = CompanyService.findCompanyByID(1);
         //then
 
+        //todo
         assertNotNull(company);
     }
 
@@ -61,6 +65,7 @@ public class CompanyServiceTest {
         List<Employee> employees = CompanyService.findCompanyEmployeesByID(2);
         //then
 
+        //todo
         assertNotNull(employees);
     }
 
@@ -75,7 +80,8 @@ public class CompanyServiceTest {
         Page<Company> companies = employeeService.findRangeOfCompany(3, 3);
 
         //then
-        assertEquals(null, companies);
+        //todo
+        assertNull(companies);
     }
 
     @Test
@@ -102,6 +108,7 @@ public class CompanyServiceTest {
         Company company = CompanyService.deleteCompany(1);
         //then
 
+        //todo verify
         assertEquals(1, company.getCompanyID());
     }
 
@@ -118,6 +125,5 @@ public class CompanyServiceTest {
 
         //then
         assertEquals("OOIL", updateCompany.getCompanyName());
-
     }
 }

@@ -28,6 +28,7 @@ public class EmployeeServiceTest {
 
 
         //then
+        //todo
         assertEquals("test",updateEmployee.getName());
         assertEquals(18,updateEmployee.getAge());
         assertEquals("male",updateEmployee.getGender());
@@ -39,6 +40,7 @@ public class EmployeeServiceTest {
         //given
 
         //when
+        //todo rename
         EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
         List<Employee> employeeList = new ArrayList<>();
