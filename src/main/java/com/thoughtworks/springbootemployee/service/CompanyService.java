@@ -38,9 +38,13 @@ public class CompanyService {
 
     public Company deleteCompany(int companyID) {
         Company company = findCompanyByID(companyID);
-        //
         companyRepository.deleteById(companyID);
-        return company;
+        Company company1 = findCompanyByID(companyID);
+        if(company1 != null) {
+            return null;
+        } else {
+            return company;
+        }
     }
 
     public Company update(int id, Company company) {

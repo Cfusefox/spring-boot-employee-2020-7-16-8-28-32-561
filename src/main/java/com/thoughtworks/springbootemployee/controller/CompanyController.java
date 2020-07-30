@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.controller;
 import com.thoughtworks.springbootemployee.data.CompanyData;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.service.CompanyService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,53 +15,35 @@ import java.util.stream.Collectors;
 @RequestMapping("/companies")
 public class CompanyController {
 
-    List<Company> allCompany = new CompanyData().getCompanies();
+    private CompanyService companyService;
 
     @GetMapping
     public List<Company> getCompanyInformation(@RequestParam(name = "page" , required = false) Integer page, @RequestParam(name = "pageSize",required = false) Integer pageSize) {
-        if(page != null && pageSize != null) {
-            return this.allCompany.subList((page - 1) * pageSize, (page-1) * pageSize + pageSize);
-        }
-        return this.allCompany;
+        return companyService.findAll();
     }
 
     @GetMapping(path = "/{id}")
     public Company getCertainCompany(@PathVariable int id) {
-        return this.allCompany.stream().filter(company -> company.getCompanyID() == id).collect(Collectors.toList()).get(0);
+        return companyService.findCompanyByID(id);
     }
 
     @GetMapping(path = "/{id}/employees")
     public List<Employee> getEmployeesInCompany(@PathVariable int id) {
-        return this.allCompany.stream().filter(company -> company.getCompanyID() == id).collect(Collectors.toList()).get(0).getEmployees();
+        return companyService.findCompanyEmployeesByID(id);
     }
 
-    //todo refactor
     @PostMapping
-    public List<Company> addCompany(@RequestBody Company company) {
-        return this.allCompany;
+    public Company addCompany(@RequestBody Company company) {
+        return companyService.addCompany(company);
     }
 
     @PutMapping(path = "/{companyID}")
-    public List<Company> updateCompanyInformation(@RequestBody Company company, @PathVariable int companyID) {
-        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
-        for (Company currentCompany: companies) {
-            if(currentCompany.getCompanyID() == companyID) {
-                currentCompany.setEmployees(company.getEmployees());
-            }
-        }
-        return companies;
+    public Company updateCompanyInformation(@RequestBody Company company, @PathVariable int companyID) {
+        return companyService.update(companyID, company);
     }
 
     @DeleteMapping(path = "/{companyID}")
-    public List<Company> deleteAllEmployeesInCompany(@PathVariable int companyID) {
-        List<Company> companies = new ArrayList<>(new CompanyData().getCompanies());
-        for (Company currentCompany: companies) {
-            if(currentCompany.getCompanyID() == companyID) {
-                currentCompany.setEmployees(null);
-                companies.remove(currentCompany);
-                break;
-            }
-        }
-        return companies;
+    public Company deleteAllEmployeesInCompany(@PathVariable int companyID) {
+        return companyService.deleteCompany(companyID);
     }
 }

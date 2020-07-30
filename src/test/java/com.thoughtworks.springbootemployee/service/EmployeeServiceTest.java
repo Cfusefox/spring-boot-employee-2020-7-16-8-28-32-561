@@ -95,7 +95,7 @@ public class EmployeeServiceTest {
         Page<Employee> employees = employeeService.getRangeOfEmployees(3, 3);
 
         //then
-        assertNotNull(employees);
+        assertEquals(Page.empty(), employees);
     }
 
     @Test
