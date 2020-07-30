@@ -40,16 +40,15 @@ public class CompanyService {
     public Company deleteCompany(int companyID) {
         Company company = findCompanyByID(companyID);
         companyRepository.deleteById(companyID);
-
         return company;
     }
 
-    public Company update(int id, Company oocl) {
+    public Company update(int id, Company company) {
         Company updateCompany = this.companyRepository.findById(id).orElse(null);
         assert updateCompany != null;
-        updateCompany.setCompanyName(oocl.getCompanyName());
-        updateCompany.setEmployees(oocl.getEmployees());
-        updateCompany.setEmployeesNumber(oocl.getEmployeesNumber());
+        updateCompany.setCompanyName(company.getCompanyName());
+        updateCompany.setEmployees(company.getEmployees());
+        updateCompany.setEmployeesNumber(company.getEmployeesNumber());
         this.companyRepository.save(updateCompany);
         return updateCompany;
     }
