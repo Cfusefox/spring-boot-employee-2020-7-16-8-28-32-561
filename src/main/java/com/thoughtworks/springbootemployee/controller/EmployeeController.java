@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.data.EmployeeData;
 import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,13 +13,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    List<Employee> allEmployee = new EmployeeData().getEmployees();
+    private EmployeeService employeeService;
 
     @GetMapping
     public List<Employee> getEmployeesInformation(@RequestParam(name = "page" , required = false) Integer page,
                                  @RequestParam(name = "pageSize",required = false) Integer pageSize,
                                  @RequestParam(name =  "gender", required = false) String gender) {
-        List<Employee> certainEmployees = allEmployee;
+        List<Employee> certainEmployees = employeeService.findAll();
         if(gender != null) {
             certainEmployees = certainEmployees.stream().filter(certainEmployee -> certainEmployee.getGender().equals(gender)).collect(Collectors.toList());
         }
@@ -30,42 +31,21 @@ public class EmployeeController {
 
     @GetMapping(path = "/{id}")
     public Employee getCertainEmployee(@PathVariable int id) {
-        return this.allEmployee.stream().filter(employee -> employee.getEmployeeID() == id).collect(Collectors.toList()).get(0);
+        return employeeService.findEmployeeByID(id);
     }
 
     @PostMapping
-    public boolean addEmployee(@RequestBody Employee employee) {
-        List<Employee> employees = new ArrayList<>();
-        return employees.add(employee);
+    public Employee addEmployee(@RequestBody Employee employee) {
+        return employeeService.addEmployee(employee);
     }
 
     @PutMapping(path = "/{employeeID}")
-    public Boolean updateEmployeeInformation(@RequestBody Employee employee, @PathVariable int employeeID) {
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "Zach", 18, "male", 1000));
-        employees.add(new Employee(2, "York", 18, "male", 1000));
-        employees.add(new Employee(3, "Karen", 18, "female", 1000));
-        for (Employee currentEmployee: employees) {
-            if(currentEmployee.getEmployeeID() == employeeID) {
-                currentEmployee.setGender(employee.getGender());
-                return true;
-            }
-        }
-        return false;
+    public Employee updateEmployeeInformation(@RequestBody Employee employee, @PathVariable int employeeID) {
+        return employeeService.update(employeeID, employee);
     }
 
     @DeleteMapping(path = "/{employeeID}")
-    public Boolean deleteEmployee(@PathVariable int employeeID) {
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "Zach", 18, "male", 1000));
-        employees.add(new Employee(2, "York", 18, "male", 1000));
-        employees.add(new Employee(3, "Karen", 18, "female", 1000));
-        for (Employee currentEmployee: employees) {
-            if(currentEmployee.getEmployeeID() == employeeID) {
-                employees.remove(currentEmployee);
-                return true;
-            }
-        }
-        return false;
+    public Employee deleteEmployee(@PathVariable int employeeID) {
+        return employeeService.deleteEmployee(employeeService.findEmployeeByID(employeeID));
     }
 }
