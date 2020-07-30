@@ -80,7 +80,7 @@ public class EmployeeServiceTest {
         //when
         List<Employee> employees = employeeService.findEmployeeByGender("male");
         //then
-        assertNotNull(employees);
+        assertEquals(employeeList, employees);
 
     }
 
