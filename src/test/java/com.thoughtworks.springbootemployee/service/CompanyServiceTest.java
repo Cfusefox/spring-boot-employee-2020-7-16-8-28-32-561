@@ -44,14 +44,14 @@ public class CompanyServiceTest {
         //given
         CompanyRepository mockedCompanyRepository = mock(CompanyRepository.class);
         CompanyService CompanyService = new CompanyService(mockedCompanyRepository);
-
-        given(mockedCompanyRepository.findById(1)).willReturn(java.util.Optional.of(new Company(1, "alibaba", 50, null)));
+        Company company = new Company(1, "alibaba", 50, null);
+        given(mockedCompanyRepository.findById(1)).willReturn(java.util.Optional.of(company));
         //when
-        Company company = CompanyService.findCompanyByID(1);
+        Company certainCompany = CompanyService.findCompanyByID(1);
         //then
 
         //todo
-        assertNotNull(company);
+        assertEquals(company, certainCompany);
     }
 
     @Test
