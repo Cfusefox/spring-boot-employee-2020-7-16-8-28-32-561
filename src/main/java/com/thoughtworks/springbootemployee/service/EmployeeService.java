@@ -26,6 +26,7 @@ public class EmployeeService {
         updateEmployee.setAge(newEmployee.getAge());
         updateEmployee.setGender(newEmployee.getGender());
         updateEmployee.setName(newEmployee.getName());
+        updateEmployee.setSalary(newEmployee.getSalary());
         employeeRepository.save(updateEmployee);
         return updateEmployee;
     }

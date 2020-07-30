@@ -1,8 +1,6 @@
 package com.thoughtworks.springbootemployee.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -11,10 +9,11 @@ public class Company {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int companyID;
     private String companyName;
     private int employeesNumber;
-    @OneToMany()
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Employee> employees;
 
     public List<Employee> getEmployees() {
