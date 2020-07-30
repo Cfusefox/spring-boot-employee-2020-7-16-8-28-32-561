@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CompanyService {
     CompanyRepository companyRespository;
@@ -24,7 +25,7 @@ public class CompanyService {
     }
 
     public List<Employee> findCompanyEmployeesByID(int companyID) {
-        return companyRespository.findById(companyID).orElse(null).getEmployees();
+        return Objects.requireNonNull(companyRespository.findById(companyID).orElse(null)).getEmployees();
     }
 
     public Page<Company> findRangeOfCompany(int page, int pageSize) {
@@ -44,9 +45,11 @@ public class CompanyService {
 
     public Company update(int id, Company oocl) {
         Company updateCompany = this.companyRespository.findById(id).orElse(null);
+        assert updateCompany != null;
         updateCompany.setCompanyName(oocl.getCompanyName());
         updateCompany.setEmployees(oocl.getEmployees());
         updateCompany.setEmployeesNumber(oocl.getEmployeesNumber());
+        this.companyRespository.save(updateCompany);
         return updateCompany;
     }
 }
