@@ -5,10 +5,13 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
+import javax.xml.ws.ServiceMode;
 import java.util.List;
 import java.util.Objects;
 
+@Service
 public class CompanyService {
     CompanyRepository companyRepository;
 
@@ -48,7 +51,7 @@ public class CompanyService {
     }
 
     public Company update(int id, Company company) {
-        Company updateCompany = this.companyRepository.findById(id).orElse(null);
+        Company updateCompany = this.findCompanyByID(id);
         assert updateCompany != null;
         updateCompany.setCompanyName(company.getCompanyName());
         updateCompany.setEmployees(company.getEmployees());

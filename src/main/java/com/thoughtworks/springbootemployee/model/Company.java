@@ -14,7 +14,7 @@ public class Company {
     private int companyID;
     private String companyName;
     private int employeesNumber;
-    @OneToMany
+    @OneToMany()
     private List<Employee> employees;
 
     public List<Employee> getEmployees() {
