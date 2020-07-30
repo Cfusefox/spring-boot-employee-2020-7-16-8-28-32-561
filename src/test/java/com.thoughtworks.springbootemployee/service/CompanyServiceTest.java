@@ -34,8 +34,6 @@ public class CompanyServiceTest {
         //when
         List<Company> companyList = CompanyService.findAll();
         //then
-
-        //todo
         assertEquals(companies, companyList);
     }
 
@@ -49,8 +47,6 @@ public class CompanyServiceTest {
         //when
         Company certainCompany = CompanyService.findCompanyByID(1);
         //then
-
-        //todo
         assertEquals(company, certainCompany);
     }
 
@@ -59,14 +55,18 @@ public class CompanyServiceTest {
         //given
         CompanyRepository mockedCompanyRepository = mock(CompanyRepository.class);
         CompanyService CompanyService = new CompanyService(mockedCompanyRepository);
+        List<Employee> employees = Arrays.asList(
+                new Employee(1, "Zach", 18, "male", 1000),
+                new Employee(2, "York", 18, "male", 1000),
+                new Employee(3, "Karen", 18, "female", 1000)
+        );
 
-        given(mockedCompanyRepository.findById(2)).willReturn(java.util.Optional.of(new Company(2, "OOCL", 0, new ArrayList<>())));
+        given(mockedCompanyRepository.findById(2)).willReturn(java.util.Optional.of(new Company(2, "OOCL", 0, employees)));
         //when
-        List<Employee> employees = CompanyService.findCompanyEmployeesByID(2);
+        List<Employee> employeeList = CompanyService.findCompanyEmployeesByID(2);
         //then
 
-        //todo
-        assertNotNull(employees);
+        assertEquals(employees, employeeList);
     }
 
     @Test
