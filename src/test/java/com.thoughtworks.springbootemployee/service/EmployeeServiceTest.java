@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
@@ -21,26 +22,21 @@ public class EmployeeServiceTest {
         //given
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
-        given(mockedEmployeeRepository.findById(5)).willReturn(java.util.Optional.of(new Employee(3, "York", 18, "male", 1000)));
+        Employee employee = new Employee(3, "York", 18, "male", 1000);
+        given(mockedEmployeeRepository.findById(5)).willReturn(java.util.Optional.of(employee));
 
         //when
         Employee updateEmployee = employeeService.update(5, new Employee(2, "York", 18, "male", 1000));
 
 
         //then
-        //todo
-        assertEquals("test",updateEmployee.getName());
-        assertEquals(18,updateEmployee.getAge());
-        assertEquals("male",updateEmployee.getGender());
+        assertEquals(employee, updateEmployee);
 
     }
 
     @Test
     void should_all_employee_information_when_find_all_employee_information_given_null() {
         //given
-
-        //when
-        //todo rename
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
         List<Employee> employeeList = new ArrayList<>();
@@ -49,9 +45,12 @@ public class EmployeeServiceTest {
         employeeList.add(new Employee(4, "York", 18, "male", 1000));
         given(mockedEmployeeRepository.findAll()).willReturn(employeeList);
 
+        //when
+        List<Employee> allEmployee = employeeService.findAll();
+
         //then
 
-        assertNotNull(employeeService.findAll());
+        assertEquals(employeeList, allEmployee);
     }
 
     @Test
@@ -104,7 +103,7 @@ public class EmployeeServiceTest {
         //given
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
-        Employee employee =new Employee(3, "York", 18, "male", 1000);
+        Employee employee = new Employee(3, "York", 18, "male", 1000);
 
         given(mockedEmployeeRepository.save(employee)).willReturn(employee);
 
@@ -120,7 +119,7 @@ public class EmployeeServiceTest {
         //given
         EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
-        Employee employee =new Employee(3, "York", 18, "male", 1000);
+        Employee employee = new Employee(3, "York", 18, "male", 1000);
         given(mockedEmployeeRepository.findById(employee.getEmployeeID())).willReturn(java.util.Optional.of(employee));
 
         //when
