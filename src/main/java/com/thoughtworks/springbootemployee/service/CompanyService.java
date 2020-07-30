@@ -33,8 +33,7 @@ public class CompanyService {
     }
 
     public Company addCompany(Company company) {
-        companyRepository.save(company);
-        return company;
+        return companyRepository.save(company);
     }
 
     public Company deleteCompany(int companyID) {
