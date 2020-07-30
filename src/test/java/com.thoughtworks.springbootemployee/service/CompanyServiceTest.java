@@ -74,14 +74,14 @@ public class CompanyServiceTest {
         //given
         CompanyRepository mockedCompanyRepository = mock(CompanyRepository.class);
         CompanyService employeeService = new CompanyService(mockedCompanyRepository);
-        given(mockedCompanyRepository.findAll()).willReturn(new ArrayList<>());
+
+        given(mockedCompanyRepository.findAll(PageRequest.of(3, 1))).willReturn(Page.empty());
 
         //when
-        Page<Company> companies = employeeService.findRangeOfCompany(3, 3);
+        Page<Company> companyList = employeeService.findRangeOfCompany(3, 1);
 
         //then
-        //todo
-        assertNull(companies);
+        assertEquals(Page.empty(), companyList);
     }
 
     @Test
