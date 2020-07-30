@@ -19,12 +19,12 @@ public class EmployeeServiceTest {
     @Test
     void should_update_employee_when_update_employee_by_id_given_employee_information() {
         //given
-        EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
-        given(mockedEmployeeRespository.findById(5)).willReturn(java.util.Optional.of(new Employee(3, "ffff", 18, "male", 1000)));
+        EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        given(mockedEmployeeRepository.findById(5)).willReturn(java.util.Optional.of(new Employee(3, "York", 18, "male", 1000)));
 
         //when
-        Employee updateEmployee = employeeService.update(5, new Employee(2, "test", 18, "male", 1000));
+        Employee updateEmployee = employeeService.update(5, new Employee(2, "York", 18, "male", 1000));
 
 
         //then
@@ -41,13 +41,13 @@ public class EmployeeServiceTest {
 
         //when
         //todo rename
-        EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
+        EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
         List<Employee> employeeList = new ArrayList<>();
-        employeeList.add(new Employee(3, "ffff", 18, "male", 1000));
-        employeeList.add(new Employee(5, "ffff", 18, "male", 1000));
-        employeeList.add(new Employee(4, "ffff", 18, "male", 1000));
-        given(mockedEmployeeRespository.findAll()).willReturn(employeeList);
+        employeeList.add(new Employee(3, "York", 18, "male", 1000));
+        employeeList.add(new Employee(5, "York", 18, "male", 1000));
+        employeeList.add(new Employee(4, "York", 18, "male", 1000));
+        given(mockedEmployeeRepository.findAll()).willReturn(employeeList);
 
         //then
 
@@ -57,10 +57,10 @@ public class EmployeeServiceTest {
     @Test
     void should_certain_employee_when_find_employee_by_id_given_id() {
         //given
-        EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
-        Employee employee = new Employee(3, "ffff", 18, "male", 1000);
-        given(mockedEmployeeRespository.findById(3)).willReturn(java.util.Optional.of(employee));
+        EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        Employee employee = new Employee(3, "York", 18, "male", 1000);
+        given(mockedEmployeeRepository.findById(3)).willReturn(java.util.Optional.of(employee));
 
         //when
         Employee certainEmployee = employeeService.findEmployeeByID(3);
@@ -72,12 +72,12 @@ public class EmployeeServiceTest {
     @Test
     void should_certain_gender_employee_when_find_employee_by_gender_given_gender() {
         //given
-        EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
+        EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
         List<Employee> employeeList = new ArrayList<>();
-        employeeList.add(new Employee(3, "ffff", 18, "male", 1000));
-        employeeList.add(new Employee(5, "ffff", 18, "male", 1000));
-        given(mockedEmployeeRespository.findAllByGender("male")).willReturn(employeeList);
+        employeeList.add(new Employee(3, "York", 18, "male", 1000));
+        employeeList.add(new Employee(5, "York", 18, "male", 1000));
+        given(mockedEmployeeRepository.findAllByGender("male")).willReturn(employeeList);
         //when
         List<Employee> employees = employeeService.findEmployeeByGender("male");
         //then
@@ -102,11 +102,11 @@ public class EmployeeServiceTest {
     @Test
     void should_return_employee_when_add_employee_given_employee() {
         //given
-        EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
-        Employee employee =new Employee(3, "ffff", 18, "male", 1000);
+        EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        Employee employee =new Employee(3, "York", 18, "male", 1000);
 
-        given(mockedEmployeeRespository.save(employee)).willReturn(employee);
+        given(mockedEmployeeRepository.save(employee)).willReturn(employee);
 
         //when
         Employee addedEmployee = employeeService.addEmployee(employee);
@@ -118,10 +118,10 @@ public class EmployeeServiceTest {
     @Test
     void should_return_employee_when_delete_employee_given_employee() {
         //given
-        EmployeeRepository mockedEmployeeRespository = mock(EmployeeRepository.class);
-        EmployeeService employeeService = new EmployeeService(mockedEmployeeRespository);
-        Employee employee =new Employee(3, "ffff", 18, "male", 1000);
-        given(mockedEmployeeRespository.findById(employee.getEmployeeID())).willReturn(java.util.Optional.of(employee));
+        EmployeeRepository mockedEmployeeRepository = mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(mockedEmployeeRepository);
+        Employee employee =new Employee(3, "York", 18, "male", 1000);
+        given(mockedEmployeeRepository.findById(employee.getEmployeeID())).willReturn(java.util.Optional.of(employee));
 
         //when
         Employee deletedEmployee = employeeService.deleteEmployee(employee);
